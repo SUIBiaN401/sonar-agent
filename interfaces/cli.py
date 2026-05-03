@@ -13,10 +13,10 @@ def parse_args(args=None):
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用示例:
-  python main.py --mode inspect --data-dir ../骗小米/data/训练
-  python main.py --mode single --file ../骗小米/data/训练/q6-CBFresult.mat
-  python main.py --mode batch --data-dir ../骗小米/data/训练
-  python main.py --mode batch --data-dir ../骗小米/data/训练 --data-dir2 ../骗小米/data/测试
+  python main.py --mode inspect --data-dir ../data/训练
+  python main.py --mode single --file ../data/训练/q6-CBFresult.mat
+  python main.py --mode batch --data-dir ../data/训练
+  python main.py --mode batch --data-dir ../data/训练 --data-dir2 ../data/测试
         """
     )
 
