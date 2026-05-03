@@ -1,0 +1,43 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 测试缓存
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# 运行输出（含真实数据结果，不上传）
+output/
+logs/
+
+# 测试输出
+tests/test_output/
+
+# 运行日志
+memory/JOURNAL.jsonl
+
+# 虚拟环境
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 真实数据（如果在项目中引用）
+data/
+*.mat
+
+# 但保留合成测试数据
+!tests/test_data/
