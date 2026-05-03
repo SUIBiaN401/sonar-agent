@@ -253,7 +253,6 @@ class TestEndToEnd:
         test_files = [f["file"] for f in fixtures if Path(f["file"]).exists()]
         if not test_files:
             pytest.skip("合成测试数据不存在，请先运行 fixture_generator.py")
-
         results = []
         for f in test_files:
             r = agent.process_single(f)

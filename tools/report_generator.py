@@ -51,7 +51,7 @@ class ReportGenerator:
                 lines.append(f"- 总体: **{vr.get('overall', '?')}**")
                 lines.append(f"- 通过率: {vr.get('pass_rate', 0):.0%}")
                 for check in vr.get("checks", []):
-                    icon = "✅" if check["status"] == "PASS" else "⚠️"
+                    icon = "1" if check["status"] == "PASS" else "0"
                     lines.append(f"  - {icon} {check['name']}: {check['detail']}")
                 lines.append("")
 
