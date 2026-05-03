@@ -72,8 +72,8 @@
     "max_retry": 3
   },
   "paths": {
-    "data_train": "../骗小米/data/训练",
-    "data_test": "../骗小米/data/测试",
+    "data_train": "../data/训练",
+    "data_test": "../data/测试",
     "output": "output",
     "logs": "logs"
   }
