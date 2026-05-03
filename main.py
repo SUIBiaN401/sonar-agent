@@ -45,7 +45,7 @@ def main():
 
     if args.mode == "inspect":
         # 数据检查模式
-        data_dirs = args.data_dirs or [os.path.join("..", "骗小米", "data", "训练")]
+        data_dirs = args.data_dirs or [os.path.join("..", "data", "train")]
         for data_dir in data_dirs:
             print(f"\n[DIR] 检查数据目录: {data_dir}")
             report = agent.inspect(data_dir)
@@ -76,8 +76,8 @@ def main():
     elif args.mode == "batch":
         # 批量模式
         data_dirs = args.data_dirs or [
-            os.path.join("..", "骗小米", "data", "训练"),
-            os.path.join("..", "骗小米", "data", "测试")
+            os.path.join("..", "data", "train"),
+            os.path.join("..", "data", "test")
         ]
         all_results = []
         for data_dir in data_dirs:

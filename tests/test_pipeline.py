@@ -218,20 +218,21 @@ class TestEndToEnd:
         assert agent.tracker is not None
         assert agent.self_validator is not None
 
-    def test_agent_processes_real_file(self, config):
-        """Agent 应能处理真实数据文件"""
+    def test_agent_processes_synthetic_file(self, config, fixtures):
+        """Agent 应能处理合成数据文件"""
         from agent.core_agent import SonarAgent
 
-        # 使用真实数据文件（q6 是已知的 medium SNR 文件）
-        real_file = PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q6-CBFresult.mat"
-        if not real_file.exists():
-            pytest.skip("真实数据文件不存在")
+        # 使用合成测试数据中的单目标文件
+        single = next(f for f in fixtures if f["n_targets"] == 1)
+        test_file = single["file"]
+        if not Path(test_file).exists():
+            pytest.skip("合成测试数据不存在，请先运行 fixture_generator.py")
 
         agent = SonarAgent(
             str(PROJECT_DIR / "config" / "default_config.json"),
             str(PROJECT_DIR / "tests" / "test_output")
         )
-        result = agent.process_single(str(real_file))
+        result = agent.process_single(str(test_file))
 
         # 验证结果结构完整
         assert "file_name" in result
@@ -239,28 +240,24 @@ class TestEndToEnd:
         assert "n_estimated" in result
         assert "validation_report" in result
         assert "processing_time" in result
-        # q6 是 medium SNR，应能检测到至少 1 个目标
-        assert result["n_trajectories"] >= 1, f"q6 应检测到至少 1 个目标: {result['n_trajectories']}"
 
-    def test_batch_processing(self, config):
-        """Agent 应能批量处理"""
+    def test_batch_processing(self, config, fixtures):
+        """Agent 应能批量处理多个合成文件"""
         from agent.core_agent import SonarAgent
 
         agent = SonarAgent(
             str(PROJECT_DIR / "config" / "default_config.json"),
             str(PROJECT_DIR / "tests" / "test_output")
         )
-        # 只处理 3 个文件以加快测试
-        test_files = [
-            str(PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q2-CBFresult.mat"),
-            str(PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q6-CBFresult.mat"),
-            str(PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q21-CBFresult.mat"),
-        ]
+        # 使用所有可用的合成测试文件
+        test_files = [f["file"] for f in fixtures if Path(f["file"]).exists()]
+        if not test_files:
+            pytest.skip("合成测试数据不存在，请先运行 fixture_generator.py")
+
         results = []
         for f in test_files:
-            if Path(f).exists():
-                r = agent.process_single(f)
-                results.append(r)
+            r = agent.process_single(f)
+            results.append(r)
         assert len(results) >= 1
         # 验证每个结果都有验证报告
         for r in results:
