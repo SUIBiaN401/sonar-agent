@@ -38,6 +38,5 @@ Thumbs.db
 # 真实数据（如果在项目中引用）
 data/
 
-# 排除所有 .mat 文件，但保留合成测试数据
+# 排除所有 .mat 文件（包括测试数据）
 *.mat
-!tests/test_data/*.mat
