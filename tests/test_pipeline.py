@@ -252,9 +252,9 @@ class TestEndToEnd:
         )
         # 只处理 3 个文件以加快测试
         test_files = [
-            str(PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q2-CBFresult.mat"),
-            str(PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q6-CBFresult.mat"),
-            str(PROJECT_DIR / ".." / "骗小米" / "data" / "训练" / "q21-CBFresult.mat"),
+            str(PROJECT_DIR / ".." / "data" / "训练" / "q2-CBFresult.mat"),
+            str(PROJECT_DIR / ".." / "data" / "训练" / "q6-CBFresult.mat"),
+            str(PROJECT_DIR / ".." / "data" / "训练" / "q21-CBFresult.mat"),
         ]
         results = []
         for f in test_files:
