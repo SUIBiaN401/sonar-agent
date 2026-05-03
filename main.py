@@ -52,17 +52,17 @@ def main():
             print(f"  文件数: {report.get('n_files', 0)}")
             print(f"  SNR分布: {report.get('snr_distribution', {})}")
             for f in report.get("files", []):
-                status = "✅" if f["status"] == "OK" else "❌"
+                status = "1" if f["status"] == "OK" else "0"
                 print(f"  {status} {f['file']}: SNR={f.get('snr_class', '?')}, "
                       f"std={f.get('db_std', '?')}, shape={f.get('shape', '?')}")
 
     elif args.mode == "single":
         # 单文件模式
         if not args.file:
-            print("❌ 单文件模式需要 --file 参数")
+            print(" 单文件模式需要 --file 参数")
             sys.exit(1)
         result = agent.process_single(args.file, output_dir)
-        print(f"\n📊 处理结果:")
+        print(f"\N 处理结果:")
         print(f"  文件: {result['file_name']}")
         print(f"  SNR: {result['snr_class']} (std={result['db_std']})")
         print(f"  检测点: {result['n_detections']}")
@@ -91,7 +91,7 @@ def main():
         agent.reporter.generate_markdown(all_results, md_path)
         agent.reporter.generate_json(all_results, json_path)
 
-        print(f"\n📊 批量处理完成:")
+        print(f"\n 批量处理完成:")
         print(f"  总文件数: {len(all_results)}")
         print(f"  总轨迹数: {sum(r.get('n_trajectories', 0) for r in all_results)}")
         avg = sum(r.get('n_trajectories', 0) for r in all_results) / max(len(all_results), 1)
@@ -101,19 +101,19 @@ def main():
     elif args.mode == "diagnose":
         # 诊断模式
         if not args.file:
-            print("❌ 诊断模式需要 --file 参数")
+            print("诊断模式需要 --file 参数")
             sys.exit(1)
         result = agent.process_single(args.file, output_dir)
-        print(f"\n🔍 诊断结果:")
+        print(f"\n 诊断结果:")
         print(f"  文件: {result['file_name']}")
         print(f"  估计目标数: {result['n_estimated']}")
         if args.n_targets:
-            match = "✅" if result['n_estimated'] == args.n_targets else "❌"
+            match = "1" if result['n_estimated'] == args.n_targets else "0"
             print(f"  {match} 与已知目标数({args.n_targets})比较: {result['n_estimated']}")
         print(f"  验证报告:")
         vr = result.get("validation_report", {})
         for check in vr.get("checks", []):
-            icon = "✅" if check["status"] == "PASS" else "⚠️"
+            icon = "1" if check["status"] == "PASS" else "0"
             print(f"    {icon} {check['name']}: {check['detail']}")
 
     elif args.mode == "validate":
